@@ -16,7 +16,7 @@ public class Board {
         { -10,  -1,  1, 10, 0,  0,  0,  0 }
     };
 
-    private int[] mailbox120 = {
+    private Piece[] mailbox120 = {
         -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
         -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
         -1,  0,  1,  2,  3,  4,  5,  6,  7, -1,
@@ -54,8 +54,8 @@ public class Board {
          return offset[piece.getCode()];
      }
 
-     public MoveType getMoveTypeTo(Color color, int mailbox120) {
-
+     public MoveType getMoveTypeTo(Color color, int mailbox120index) {
+        mailbox120[mailbox120index]
      }
 
 }
