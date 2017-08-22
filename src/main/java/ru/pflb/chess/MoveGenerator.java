@@ -1,10 +1,10 @@
-package board;
+package ru.pflb.chess;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static board.PieceType.KING;
-import static board.PieceType.ROOK;
+import static ru.pflb.chess.PieceType.KING;
+import static ru.pflb.chess.PieceType.ROOK;
 
 /**
  * @author <a href="mailto:8445322@gmail.com">Ivan Bonkin</a>.

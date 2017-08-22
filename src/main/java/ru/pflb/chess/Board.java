@@ -1,11 +1,8 @@
-package board;
+package ru.pflb.chess;
 
-import static board.Color.BLACK;
-import static board.Color.WHITE;
-import static board.Piece.EMP;
-import static board.Piece.OUT;
-import static board.PieceType.KING;
-import static board.PieceType.ROOK;
+import static ru.pflb.chess.Color.*;
+import static ru.pflb.chess.Piece.*;
+import static ru.pflb.chess.PieceType.*;
 
 /**
  * @author <a href="mailto:8445322@gmail.com">Ivan Bonkin</a>.
@@ -81,10 +78,6 @@ public class Board {
      public int[] getOffsets(PieceType piece) {
          return offset[piece.getCode()];
      }
-
-//    public MoveType getMoveTypeTo(Color color, int mailbox120index) {
-//        mailbox120[mailbox120index]
-//    }
 
     public Piece getPiece(int newPos) {
         return mailbox120[newPos];

@@ -1,9 +1,9 @@
-package board;
+package ru.pflb.chess;
 
-import static board.Color.BLACK;
-import static board.Color.WHITE;
-import static board.PieceType.KING;
-import static board.PieceType.ROOK;
+import static ru.pflb.chess.Color.BLACK;
+import static ru.pflb.chess.Color.WHITE;
+import static ru.pflb.chess.PieceType.KING;
+import static ru.pflb.chess.PieceType.ROOK;
 
 /**
  * @author <a href="mailto:8445322@gmail.com">Ivan Bonkin</a>.
