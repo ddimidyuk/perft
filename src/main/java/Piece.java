@@ -1,17 +1,18 @@
 /**
  * @author <a href="mailto:8445322@gmail.com">Ivan Bonkin</a>.
  */
-public enum Piece {
+public class Piece {
 
-    KING(0), ROOK(1);
+    private final PieceType pieceType;
 
-    private final int code;
+    private final Color color;
 
-    Piece(int code) {
-        this.code = code;
+    public Piece(PieceType pieceType, Color color) {
+        this.pieceType = pieceType;
+        this.color = color;
     }
 
     public int getCode() {
-        return code;
+
     }
 }

@@ -50,7 +50,7 @@ public class Board {
         return rookPos64[color.getCode()][index];
      }
 
-     public int[] getOffsets(Piece piece) {
+     public int[] getOffsets(PieceType piece) {
          return offset[piece.getCode()];
      }
 }

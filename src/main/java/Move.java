@@ -5,9 +5,9 @@ public class Move {
 
     private final int from, to;
 
-    private final Piece piece;
+    private final PieceType piece;
 
-    public Move(int from, int to, Piece piece) {
+    public Move(int from, int to, PieceType piece) {
         this.from = from;
         this.to = to;
         this.piece = piece;
@@ -21,7 +21,7 @@ public class Move {
         return to;
     }
 
-    public Piece getPiece() {
+    public PieceType getPiece() {
         return piece;
     }
 }
