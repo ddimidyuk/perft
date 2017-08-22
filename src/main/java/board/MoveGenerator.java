@@ -24,7 +24,15 @@ public class MoveGenerator {
             int newPos = kingPos + offsets[i];
 
             Piece piece = board.getPiece(newPos);
-            if (piece.)
+            if (piece.isEmpty()) {
+
+            } else if (piece.isEnemy()) {
+
+            } else if (piece.isFriend()) {
+
+            } else {
+                // за пределами доски
+            }
         }
 
     }
