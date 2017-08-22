@@ -3,8 +3,11 @@
  */
 public class Board {
 
-    private int[] kingPos = {0, 0};
-    private int[][] rookPos = {{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0}};
+    private int[] kingPos64 = {0, 0};
+    private int[][] rookPos64 = {
+            {0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0}
+    };
 
     private int[][] offset = {
         // KING
@@ -13,7 +16,7 @@ public class Board {
         { -10,  -1,  1, 10, 0,  0,  0,  0 }
     };
 
-    private int[] mailbox = {
+    private int[] mailbox120 = {
         -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
         -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
         -1,  0,  1,  2,  3,  4,  5,  6,  7, -1,
@@ -40,12 +43,14 @@ public class Board {
     };
 
     public int getKingPos(Color color) {
-        return kingPos[color.getCode()];
+        return mailbox64[kingPos64[color.getCode()]];
     }
 
      public int getRookPos(Color color, int index) {
-        return rookPos[color.getCode()][index];
+        return rookPos64[color.getCode()][index];
      }
 
-
+     public int[] getOffsets(Piece piece) {
+         return offset[piece.getCode()];
+     }
 }

@@ -17,6 +17,10 @@ public class MoveGenerator {
 
     public List<Move> generateKingMoves(Board board, Color color) {
         int kingPos = board.getKingPos(color);
+        int[] offsets = board.getOffsets(Piece.KING);
+        for (int i = 0; i < offsets.length; i++) {
+            int newPos = kingPos + offsets[i];
+        }
 
     }
 
