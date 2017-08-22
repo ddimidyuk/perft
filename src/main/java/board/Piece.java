@@ -58,6 +58,15 @@ public class Piece {
         }
     }
 
+    public boolean isEmpty() {
+        return code == 0;
+    }
+
+    public boolean isEnemy(Color color) {
+        Color pieceColor = getColor();
+        return pieceColor != null && pieceColor != color;
+    }
+
     public Color getColor() {
         if (code >= 1 && code <= 6) {
             return WHITE;
@@ -66,17 +75,5 @@ public class Piece {
         } else {
             return null;
         }
-    }
-
-    public boolean isEmpty() {
-        return code == 0;
-    }
-
-    public boolean isEnemy(Color sideToMove) {
-        return enemy;
-    }
-
-    public boolean isFriend(Color sideToMove) {
-        return friend;
     }
 }
