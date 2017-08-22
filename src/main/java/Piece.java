@@ -12,7 +12,14 @@ public class Piece {
         this.color = color;
     }
 
+    /**
+     * 0 - белый король
+     * 1 - белая ладья
+     *
+     * 6 - черный король
+     * 7 - черная ладья
+     */
     public int getCode() {
-
+        return color.getCode() * 6 + pieceType.getCode();
     }
 }

@@ -20,6 +20,8 @@ public class MoveGenerator {
         int[] offsets = board.getOffsets(PieceType.KING);
         for (int i = 0; i < offsets.length; i++) {
             int newPos = kingPos + offsets[i];
+
+
         }
 
     }

@@ -53,4 +53,9 @@ public class Board {
      public int[] getOffsets(PieceType piece) {
          return offset[piece.getCode()];
      }
+
+     public MoveType getMoveTypeTo(Color color, int mailbox120) {
+
+     }
+
 }
