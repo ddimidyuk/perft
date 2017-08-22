@@ -1,17 +1,15 @@
+package board;
+
 /**
  * @author <a href="mailto:8445322@gmail.com">Ivan Bonkin</a>.
  */
-public enum PieceType {
+public enum MoveType {
 
-    KING(0), ROOK(1);
+    QUIET(0), CAPTURE(1), BLOCKED(-1);
 
     private final int code;
 
-    PieceType(int code) {
+    MoveType(int code) {
         this.code = code;
-    }
-
-    public int getCode() {
-        return code;
     }
 }

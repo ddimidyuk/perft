@@ -1,3 +1,5 @@
+package board;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +23,8 @@ public class MoveGenerator {
         for (int i = 0; i < offsets.length; i++) {
             int newPos = kingPos + offsets[i];
 
-
+            Piece piece = board.getPiece(newPos);
+            if (piece.)
         }
 
     }
