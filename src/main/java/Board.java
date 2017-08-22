@@ -6,6 +6,13 @@ public class Board {
     private int[] kingPos = {0, 0};
     private int[][] rookPos = {{0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0,0}};
 
+    private int[][] offset = {
+        // KING
+        { -11, -10, -9, -1, 1,  9, 10, 11 },
+        // ROOK
+        { -10,  -1,  1, 10, 0,  0,  0,  0 }
+    };
+
     private int[] mailbox = {
         -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
         -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,

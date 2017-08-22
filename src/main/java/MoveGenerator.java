@@ -16,12 +16,12 @@ public class MoveGenerator {
     }
 
     public List<Move> generateKingMoves(Board board, Color color) {
-        // TODO
+        int kingPos = board.getKingPos(color);
+
     }
 
     public List<Move> generateRookMoves(Board board, Color color) {
         // TODO
-
     }
 
 }
