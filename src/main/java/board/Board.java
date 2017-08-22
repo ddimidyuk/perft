@@ -1,6 +1,11 @@
 package board;
 
-import static board.Piece.*;
+import static board.Color.BLACK;
+import static board.Color.WHITE;
+import static board.Piece.EMP;
+import static board.Piece.OUT;
+import static board.PieceType.KING;
+import static board.PieceType.ROOK;
 
 /**
  * @author <a href="mailto:8445322@gmail.com">Ivan Bonkin</a>.
@@ -47,6 +52,23 @@ public class Board {
         81, 82, 83, 84, 85, 86, 87, 88,
         91, 92, 93, 94, 95, 96, 97, 98
     };
+
+    public Board(String fen) {
+        for (int square = 0, fenIndex = 0; fenIndex < fen.length(); fenIndex++) {
+            Piece piece;
+            switch (fen.charAt(fenIndex)) {
+                case 'K':
+                    piece = new Piece(KING, WHITE);
+                case 'R':
+                    piece = new Piece(ROOK, WHITE);
+                case 'k':
+                    piece = new Piece(KING, BLACK);
+                case 'r':
+                    piece = new Piece(ROOK, BLACK);
+            }
+
+        }
+    }
 
     public int getKingPos(Color color) {
         return mailbox64[kingPos64[color.getCode()]];
