@@ -1,5 +1,10 @@
 package board;
 
+import static board.Color.BLACK;
+import static board.Color.WHITE;
+import static board.PieceType.KING;
+import static board.PieceType.ROOK;
+
 /**
  * @author <a href="mailto:8445322@gmail.com">Ivan Bonkin</a>.
  */
@@ -16,31 +21,62 @@ public class Piece {
     // TODO
     public static final Piece OUT = new Piece(null, null);
 
-    private final PieceType pieceType;
-
-    private final Color color;
+    private final int code;
 
     public Piece(PieceType pieceType, Color color) {
-        this.pieceType = pieceType;
-        this.color = color;
+        this.code = color.getCode() * 6 + pieceType.getCode() + 1;
     }
 
     /**
-     * 0 - белый король
-     * 1 - белая ладья
+     * -1 - за пределами доски
+     * 0 - пустое поле внутри доски
      *
-     * 6 - черный король
-     * 7 - черная ладья
+     * 1 - белый король
+     * 2 - белая ладья
+     *
+     * 7 - черный король
+     * 8 - черная ладья
      */
     public int getCode() {
-        return color.getCode() * 6 + pieceType.getCode();
+        return code;
     }
 
     public PieceType getPieceType() {
-        return pieceType;
+        switch (code) {
+            case -1:
+                return null;
+            case 0:
+                return null;
+            case 1:
+            case 7:
+                return KING;
+            case 2:
+            case 8:
+                return ROOK;
+            default:
+                return null;
+        }
     }
 
     public Color getColor() {
-        return color;
+        if (code >= 1 && code <= 6) {
+            return WHITE;
+        } else if (code >= 7 && code <= 12) {
+            return BLACK;
+        } else {
+            return null;
+        }
+    }
+
+    public boolean isEmpty() {
+        return code == 0;
+    }
+
+    public boolean isEnemy(Color sideToMove) {
+        return enemy;
+    }
+
+    public boolean isFriend(Color sideToMove) {
+        return friend;
     }
 }

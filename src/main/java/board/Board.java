@@ -13,6 +13,8 @@ public class Board {
             {0,0,0,0,0,0,0,0,0,0}
     };
 
+    private int rooksNb[] = {0, 0};
+
     private int[][] offset = {
         // KING
         { -11, -10, -9, -1, 1,  9, 10, 11 },
@@ -64,5 +66,9 @@ public class Board {
 
     public Piece getPiece(int newPos) {
         return mailbox120[newPos];
+    }
+
+    public int getRooksNb(Color color) {
+        return rooksNb[color.getCode()];
     }
 }
