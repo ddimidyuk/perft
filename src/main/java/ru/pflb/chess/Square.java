@@ -36,7 +36,10 @@ public class Square {
 
     @Override
     public String toString() {
-        return "Square(" + square + ")";
+        char file = 'H', rank = '1';
+        file -= (square - 21) % 10;
+        rank += (square - 21) / 10;
+        return "" + file + rank;
     }
 
     @Override
