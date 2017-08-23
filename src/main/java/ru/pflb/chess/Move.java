@@ -1,6 +1,7 @@
 package ru.pflb.chess;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @author <a href="mailto:8445322@gmail.com">Ivan Bonkin</a>.
@@ -9,16 +10,38 @@ public class Move {
 
     private final Square from, to;
 
-    private final PieceType piece;
+    private final Piece piece;
 
-    public Move(Square from, Square to, PieceType piece) {
+    private final Optional<Piece> capture;
+
+    public Move(Square from, Square to, Piece piece, Piece capture) {
         this.from = from;
         this.to = to;
         this.piece = piece;
+        this.capture = Optional.of(capture);
     }
 
-    public PieceType getPiece() {
+    public Move(Square from, Square to, Piece piece) {
+        this.from = from;
+        this.to = to;
+        this.piece = piece;
+        this.capture = Optional.empty();
+    }
+
+    public Piece getPiece() {
         return piece;
+    }
+
+    public Square getFrom() {
+        return from;
+    }
+
+    public Square getTo() {
+        return to;
+    }
+
+    public Optional<Piece> getCapture() {
+        return capture;
     }
 
     @Override

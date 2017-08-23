@@ -1,5 +1,7 @@
 package ru.pflb.chess;
 
+import ru.pflb.chess.exception.NotImplementedException;
+
 import static ru.pflb.chess.Color.BLACK;
 import static ru.pflb.chess.Color.WHITE;
 import static ru.pflb.chess.Piece.EMP;
@@ -115,5 +117,72 @@ public class Board {
 
     public int getRooksNb(Color color) {
         return rooksNb[color.getCode()];
+    }
+
+    public void doMove(Move move) {
+        // удаление взятой фигуры, если была
+        Piece pieceTo = mailbox120[move.getTo().getCode()];
+        switch (pieceTo.getPieceType()) {
+            case ROOK:
+                for (int i = 0; i < rookPos120[pieceTo.getColor().getCode()].length; i++) {
+                    if (rookPos120[pieceTo.getColor().getCode()][i] == move.getTo().getCode()) {
+                        rookPos120[pieceTo.getColor().getCode()][i] = 0;
+                        break;
+                    }
+                }
+        }
+
+        mailbox120[move.getFrom().getCode()] = EMP;
+        mailbox120[move.getTo().getCode()] = move.getPiece();
+
+        // обновление массивов быстрого доступа
+        switch (move.getPiece().getPieceType()) {
+            case KING:
+                kingPos120[sideToMove.getCode()] = move.getTo().getCode();
+            case ROOK:
+                for (int i = 0; i < rookPos120[sideToMove.getCode()].length; i++) {
+                    if (rookPos120[sideToMove.getCode()][i] == move.getFrom().getCode()) {
+                        rookPos120[sideToMove.getCode()][i] = move.getTo().getCode();
+                        break;
+                    }
+                }
+        }
+
+        sideToMove = sideToMove.getOpposite();
+    }
+
+    public void undoMove(Move move) {
+        mailbox120[move.getFrom().getCode()] = move.getPiece();
+        mailbox120[move.getTo().getCode()] = move.getCapture().orElse(EMP);
+
+        // обновление массивов быстрого доступа
+        switch (move.getPiece().getPieceType()) {
+            case KING:
+                kingPos120[sideToMove.getOppositeCode()] = move.getTo().getCode();
+            case ROOK:
+                for (int i = 0; i < rookPos120[sideToMove.getOppositeCode()].length; i++) {
+                    if (rookPos120[sideToMove.getOppositeCode()][i] == move.getTo().getCode()) {
+                        rookPos120[sideToMove.getOppositeCode()][i] = move.getFrom().getCode();
+                        break;
+                    }
+                }
+        }
+
+        // возвращение взятой фигуры, если была
+        if (move.getCapture().isPresent()) {
+            switch (move.getCapture().get().getPieceType()) {
+                case ROOK:
+                    for (int i = 0; i < rookPos120[sideToMove.getCode()].length; i++) {
+                        if (rookPos120[sideToMove.getCode()][i] == 0) {
+                            rookPos120[sideToMove.getCode()][i] = move.getTo().getCode();
+                            break;
+                        }
+                    }
+                    default:
+                        throw new NotImplementedException();
+            }
+        }
+
+        sideToMove = sideToMove.getOpposite();
     }
 }

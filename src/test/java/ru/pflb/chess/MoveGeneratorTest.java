@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static ru.pflb.chess.PieceType.KING;
+import static ru.pflb.chess.Piece.W_KING;
 import static ru.pflb.chess.Square.*;
 
 
@@ -22,11 +22,11 @@ public class MoveGeneratorTest {
         List<Move> moves = new MoveGenerator(board).generateKingMoves();
 
         assertThat(moves).contains(
-                new Move(A7, A6, KING),
-                new Move(A7, B6, KING),
-                new Move(A7, B7, KING),
-                new Move(A7, A8, KING),
-                new Move(A7, B8, KING));
+                new Move(A7, A6, W_KING),
+                new Move(A7, B6, W_KING),
+                new Move(A7, B7, W_KING),
+                new Move(A7, A8, W_KING),
+                new Move(A7, B8, W_KING));
     }
 
 }

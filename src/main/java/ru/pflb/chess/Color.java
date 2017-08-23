@@ -16,4 +16,15 @@ public enum Color {
     public int getCode() {
         return code;
     }
+
+    /**
+     * @return противоположный цвет
+     */
+    public int getOppositeCode() {
+        return code ^ 1;
+    }
+
+    public Color getOpposite() {
+        return this == WHITE ? BLACK : WHITE;
+    }
 }

@@ -20,6 +20,11 @@ public class Piece {
      */
     public static final Piece OUT = new Piece(-1);
 
+    public static final Piece W_KING = new Piece(KING, WHITE);
+    public static final Piece B_KING = new Piece(KING, BLACK);
+    public static final Piece W_ROOK = new Piece(ROOK, WHITE);
+    public static final Piece B_ROOK = new Piece(ROOK, BLACK);
+
     private final int code;
 
     public Piece(PieceType pieceType, Color color) {

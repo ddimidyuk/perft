@@ -3,6 +3,8 @@ package ru.pflb.chess;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ru.pflb.chess.Color.WHITE;
+import static ru.pflb.chess.Piece.*;
 import static ru.pflb.chess.PieceType.KING;
 import static ru.pflb.chess.PieceType.ROOK;
 
@@ -35,7 +37,7 @@ public class MoveGenerator {
 
             Piece piece = board.getPiece(newPos);
             if (piece.isEmpty() || piece.isEnemy(board.getSideToMove())) {
-                moves.add(new Move(new Square(kingPos), new Square(newPos), KING));
+                moves.add(new Move(new Square(kingPos), new Square(newPos), board.getSideToMove() == WHITE ? W_KING : B_KING));
             } else {
                 // не можем ходить:
                 // либо своя фигура
@@ -55,8 +57,10 @@ public class MoveGenerator {
             for (int i = 0; i < offsets.length; i++) {
                 for (int newPos = rookPos + offsets[i]; ; newPos += offsets[i]) {
                     Piece piece = board.getPiece(newPos);
-                    if (piece.isEmpty() && piece.isEnemy(board.getSideToMove())) {
-                        moves.add(new Move(new Square(rookPos), new Square(newPos), ROOK));
+                    if (piece.isEmpty()) {
+                        moves.add(new Move(new Square(rookPos), new Square(newPos), board.getSideToMove() == WHITE ? W_ROOK : B_ROOK));
+                    } else if (piece.isEnemy(board.getSideToMove())) {
+                        moves.add(new Move(new Square(rookPos), new Square(newPos), board.getSideToMove() == WHITE ? W_ROOK : B_ROOK, piece));
                     } else {
                         // не можем ходить:
                         // либо своя фигура

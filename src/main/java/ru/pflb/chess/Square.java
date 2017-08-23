@@ -30,6 +30,10 @@ public class Square {
         return new Square(square + offset);
     }
 
+    public int getCode() {
+        return square;
+    }
+
     @Override
     public String toString() {
         return "Square(" + square + ")";
