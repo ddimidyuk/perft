@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static ru.pflb.chess.Color.WHITE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static ru.pflb.chess.PieceType.KING;
 import static ru.pflb.chess.Square.*;
@@ -20,7 +19,7 @@ public class MoveGeneratorTest {
 
         Board board = new Board("3k4/K7/8/8/8/8/8/8 w - -");
 
-        List<Move> moves = new MoveGenerator().generateKingMoves(board, WHITE);
+        List<Move> moves = new MoveGenerator(board).generateKingMoves();
 
         assertThat(moves).contains(
                 new Move(A7, A6, KING),

@@ -1,8 +1,11 @@
 package ru.pflb.chess;
 
-import static ru.pflb.chess.Color.*;
-import static ru.pflb.chess.Piece.*;
-import static ru.pflb.chess.PieceType.*;
+import static ru.pflb.chess.Color.BLACK;
+import static ru.pflb.chess.Color.WHITE;
+import static ru.pflb.chess.Piece.EMP;
+import static ru.pflb.chess.Piece.OUT;
+import static ru.pflb.chess.PieceType.KING;
+import static ru.pflb.chess.PieceType.ROOK;
 
 /**
  * @author <a href="mailto:8445322@gmail.com">Ivan Bonkin</a>.
@@ -14,6 +17,8 @@ public class Board {
             {0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0}
     };
+
+    private Color sideToMove;
 
     private int rooksNb[] = {0, 0};
 
@@ -86,6 +91,10 @@ public class Board {
             }
 
         }
+    }
+
+    public Color getSideToMove() {
+        return sideToMove;
     }
 
     public int getKingPos(Color color) {

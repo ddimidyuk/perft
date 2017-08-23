@@ -11,24 +11,30 @@ import static ru.pflb.chess.PieceType.ROOK;
  */
 public class MoveGenerator {
 
-    public List<Move> generateMoves(Board board, Color color) {
+    private final Board board;
+
+    public MoveGenerator(Board board) {
+        this.board = board;
+    }
+
+    public List<Move> generateMoves() {
         List<Move> moves = new ArrayList<Move>();
 
-        moves.addAll(generateKingMoves(board, color));
-        moves.addAll(generateRookMoves(board, color));
+        moves.addAll(generateKingMoves());
+        moves.addAll(generateRookMoves());
 
         return moves;
     }
 
-    public List<Move> generateKingMoves(Board board, Color sideToMove) {
-        int kingPos = board.getKingPos(sideToMove);
+    public List<Move> generateKingMoves() {
+        int kingPos = board.getKingPos(board.getSideToMove());
         int[] offsets = board.getOffsets(KING);
         List<Move> moves = new ArrayList<Move>();
         for (int i = 0; i < offsets.length; i++) {
             int newPos = kingPos + offsets[i];
 
             Piece piece = board.getPiece(newPos);
-            if (piece.isEmpty() || piece.isEnemy(sideToMove)) {
+            if (piece.isEmpty() || piece.isEnemy(board.getSideToMove())) {
                 moves.add(new Move(new Square(kingPos), new Square(newPos), KING));
             } else {
                 // не можем ходить:
@@ -40,16 +46,16 @@ public class MoveGenerator {
         return moves;
     }
 
-    public List<Move> generateRookMoves(Board board, Color sideToMove) {
+    public List<Move> generateRookMoves() {
         List<Move> moves = new ArrayList<Move>();
-        for (int r = 0; r < board.getRooksNb(sideToMove); r++) {
-            int rookPos = board.getRookPos(sideToMove, r);
+        for (int r = 0; r < board.getRooksNb(board.getSideToMove()); r++) {
+            int rookPos = board.getRookPos(board.getSideToMove(), r);
             int[] offsets = board.getOffsets(ROOK);
 
             for (int i = 0; i < offsets.length; i++) {
                 for (int newPos = rookPos + offsets[i]; ; newPos += offsets[i]) {
                     Piece piece = board.getPiece(newPos);
-                    if (piece.isEmpty() && piece.isEnemy(sideToMove)) {
+                    if (piece.isEmpty() && piece.isEnemy(board.getSideToMove())) {
                         moves.add(new Move(new Square(rookPos), new Square(newPos), ROOK));
                     } else {
                         // не можем ходить:
