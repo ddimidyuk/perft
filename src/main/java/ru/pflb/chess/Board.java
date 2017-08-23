@@ -35,15 +35,15 @@ public class Board {
         OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT, // 0-9
         OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT, // 10-19
         OUT, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, OUT, // 20-29
-        OUT, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, OUT,
-        OUT, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, OUT,
-        OUT, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, OUT,
-        OUT, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, OUT,
-        OUT, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, OUT,
-        OUT, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, OUT,
-        OUT, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, OUT,
-        OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT,
-        OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT
+        OUT, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, OUT, // 30-39
+        OUT, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, OUT, // 40-49
+        OUT, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, OUT, // 50-59
+        OUT, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, OUT, // 60-69
+        OUT, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, OUT, // 70-79
+        OUT, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, OUT, // 80-89
+        OUT, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, OUT, // 90-99
+        OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT, // 100-109
+        OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT  // 110-119
     };
 
     int[] mailbox64 = {
@@ -74,6 +74,7 @@ public class Board {
                             break;
                         }
                     }
+                    rooksNb[WHITE.getCode()] += 1;
                     break;
                 case 'k':
                     mailbox120[square] = new Piece(KING, BLACK);
@@ -87,6 +88,7 @@ public class Board {
                             break;
                         }
                     }
+                    rooksNb[BLACK.getCode()] += 1;
                     break;
                 case '/':
                     square -= 1;
@@ -148,6 +150,14 @@ public class Board {
                     for (int i = 0; i < rookPos120[pieceTo.getColor().getCode()].length; i++) {
                         if (rookPos120[pieceTo.getColor().getCode()][i] == move.getTo().getCode()) {
                             rookPos120[pieceTo.getColor().getCode()][i] = 0;
+                            // в случае, если удалили из середины - сдвигаем все значения, оставляя нули справа
+                            for (int j = i + 1; j < rookPos120[pieceTo.getColor().getCode()].length; j++) {
+                                int nextPos = rookPos120[pieceTo.getColor().getCode()][j];
+                                rookPos120[pieceTo.getColor().getCode()][j-1] = nextPos;
+                                if (nextPos == 0) {
+                                    break;
+                                }
+                            }
                             break;
                         }
                     }
