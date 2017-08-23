@@ -59,12 +59,11 @@ public class Move {
         return Objects.hash(from, to, piece);
     }
 
+    /**
+     * @return <a href="полная запись ходов">https://ru.wikipedia.org/wiki/%D0%A8%D0%B0%D1%85%D0%BC%D0%B0%D1%82%D0%BD%D0%B0%D1%8F_%D0%BD%D0%BE%D1%82%D0%B0%D1%86%D0%B8%D1%8F</a>
+     */
     @Override
     public String toString() {
-        return "Move{" +
-                "from=" + from +
-                ", to=" + to +
-                ", piece=" + piece +
-                '}';
+        return piece.getPieceType().name().substring(0, 1) + from + "-" + to;
     }
 }
