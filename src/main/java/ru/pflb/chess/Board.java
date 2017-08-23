@@ -58,8 +58,9 @@ public class Board {
     };
 
     public Board(String fen) {
-        for (int square = 98, fenIndex = 0; fenIndex < fen.length(); fenIndex++, square--) {
-            char c = fen.charAt(fenIndex);
+        String[] fenParts = fen.split("\\s");
+        for (int square = 98, fenIndex = 0; fenIndex < fenParts[0].length(); fenIndex++, square--) {
+            char c = fenParts[0].charAt(fenIndex);
             switch (c) {
                 case 'K':
                     mailbox120[square] = new Piece(KING, WHITE);
@@ -67,6 +68,12 @@ public class Board {
                     break;
                 case 'R':
                     mailbox120[square] = new Piece(ROOK, WHITE);
+                    for (int i = 0; i < rookPos120[WHITE.getCode()].length; i++) {
+                        if (rookPos120[WHITE.getCode()][i] == 0) {
+                            rookPos120[WHITE.getCode()][i] = square;
+                            break;
+                        }
+                    }
                     break;
                 case 'k':
                     mailbox120[square] = new Piece(KING, BLACK);
@@ -74,6 +81,12 @@ public class Board {
                     break;
                 case 'r':
                     mailbox120[square] = new Piece(ROOK, BLACK);
+                    for (int i = 0; i < rookPos120[BLACK.getCode()].length; i++) {
+                        if (rookPos120[BLACK.getCode()][i] == 0) {
+                            rookPos120[BLACK.getCode()][i] = square;
+                            break;
+                        }
+                    }
                     break;
                 case '/':
                     square -= 1;
@@ -88,10 +101,16 @@ public class Board {
                 case '8':
                     square -= c - '1';
                     break;
-                case ' ':
-                    return;
+                default:
+                    throw new IllegalStateException("Недопустимый символ - " + c);
             }
-
+        }
+        if (fenParts[1].charAt(0) == 'w') {
+            sideToMove = WHITE;
+        } else if (fenParts[1].charAt(0) == 'b') {
+            sideToMove = BLACK;
+        } else {
+            throw new IllegalStateException("Недопустимый символ - " + fenParts[1].charAt(0));
         }
     }
 
@@ -122,14 +141,17 @@ public class Board {
     public void doMove(Move move) {
         // удаление взятой фигуры, если была
         Piece pieceTo = mailbox120[move.getTo().getCode()];
-        switch (pieceTo.getPieceType()) {
-            case ROOK:
-                for (int i = 0; i < rookPos120[pieceTo.getColor().getCode()].length; i++) {
-                    if (rookPos120[pieceTo.getColor().getCode()][i] == move.getTo().getCode()) {
-                        rookPos120[pieceTo.getColor().getCode()][i] = 0;
-                        break;
+        PieceType pieceType = pieceTo.getPieceType();
+        if (pieceType != null) {
+            switch (pieceType) {
+                case ROOK:
+                    for (int i = 0; i < rookPos120[pieceTo.getColor().getCode()].length; i++) {
+                        if (rookPos120[pieceTo.getColor().getCode()][i] == move.getTo().getCode()) {
+                            rookPos120[pieceTo.getColor().getCode()][i] = 0;
+                            break;
+                        }
                     }
-                }
+            }
         }
 
         mailbox120[move.getFrom().getCode()] = EMP;
