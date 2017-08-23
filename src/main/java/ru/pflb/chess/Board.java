@@ -56,12 +56,16 @@ public class Board {
             switch (fen.charAt(fenIndex)) {
                 case 'K':
                     piece = new Piece(KING, WHITE);
+                    break;
                 case 'R':
                     piece = new Piece(ROOK, WHITE);
+                    break;
                 case 'k':
                     piece = new Piece(KING, BLACK);
+                    break;
                 case 'r':
                     piece = new Piece(ROOK, BLACK);
+                    break;
             }
 
         }
