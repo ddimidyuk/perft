@@ -13,18 +13,21 @@ public class Piece {
     /**
      * Поле пустое и доступно для перемещения.
      */
-    public static final Piece EMP = new Piece(null, null);
+    public static final Piece EMP = new Piece(0);
 
     /**
      * Поле недоступно для перемещения.
      */
-    // TODO
-    public static final Piece OUT = new Piece(null, null);
+    public static final Piece OUT = new Piece(-1);
 
     private final int code;
 
     public Piece(PieceType pieceType, Color color) {
-        this.code = color.getCode() * 6 + pieceType.getCode() + 1;
+        this(color.getCode() * 6 + pieceType.getCode() + 1);
+    }
+
+    private Piece(int code) {
+        this.code = code;
     }
 
     /**
@@ -75,5 +78,9 @@ public class Piece {
         } else {
             return null;
         }
+    }
+
+    public String toString() {
+        return code == -1 ? "OUT" : code == 0 ? "EMPTY" : getPieceType().name();
     }
 }

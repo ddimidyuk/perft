@@ -9,8 +9,8 @@ import static ru.pflb.chess.PieceType.*;
  */
 public class Board {
 
-    private int[] kingPos64 = {0, 0};
-    private int[][] rookPos64 = {
+    private int[] kingPos120 = {0, 0};
+    private int[][] rookPos120 = {
             {0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0}
     };
@@ -25,9 +25,9 @@ public class Board {
     };
 
     private Piece[] mailbox120 = {
-        OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT,
-        OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT,
-        OUT, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, OUT,
+        OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT, // 0-9
+        OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT, OUT, // 10-19
+        OUT, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, OUT, // 20-29
         OUT, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, OUT,
         OUT, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, OUT,
         OUT, EMP, EMP, EMP, EMP, EMP, EMP, EMP, EMP, OUT,
@@ -51,31 +51,52 @@ public class Board {
     };
 
     public Board(String fen) {
-        for (int square = 0, fenIndex = 0; fenIndex < fen.length(); fenIndex++) {
-            Piece piece;
-            switch (fen.charAt(fenIndex)) {
+        for (int square = 98, fenIndex = 0; fenIndex < fen.length(); fenIndex++, square--) {
+            char c = fen.charAt(fenIndex);
+            switch (c) {
                 case 'K':
-                    piece = new Piece(KING, WHITE);
+                    mailbox120[square] = new Piece(KING, WHITE);
+                    kingPos120[WHITE.getCode()] = square;
+                    break;
                 case 'R':
-                    piece = new Piece(ROOK, WHITE);
+                    mailbox120[square] = new Piece(ROOK, WHITE);
+                    break;
                 case 'k':
-                    piece = new Piece(KING, BLACK);
+                    mailbox120[square] = new Piece(KING, BLACK);
+                    kingPos120[BLACK.getCode()] = square;
+                    break;
                 case 'r':
-                    piece = new Piece(ROOK, BLACK);
+                    mailbox120[square] = new Piece(ROOK, BLACK);
+                    break;
+                case '/':
+                    square -= 1;
+                    break;
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                    square -= c - '1';
+                    break;
+                case ' ':
+                    return;
             }
 
         }
     }
 
     public int getKingPos(Color color) {
-        return mailbox64[kingPos64[color.getCode()]];
+        return kingPos120[color.getCode()];
     }
 
-     public int getRookPos(Color color, int index) {
-        return rookPos64[color.getCode()][index];
+    public int getRookPos(Color color, int index) {
+        return rookPos120[color.getCode()][index];
      }
 
-     public int[] getOffsets(PieceType piece) {
+    public int[] getOffsets(PieceType piece) {
          return offset[piece.getCode()];
      }
 

@@ -23,13 +23,13 @@ public class MoveGenerator {
     public List<Move> generateKingMoves(Board board, Color sideToMove) {
         int kingPos = board.getKingPos(sideToMove);
         int[] offsets = board.getOffsets(KING);
-        ArrayList<Move> moves = new ArrayList<Move>();
+        List<Move> moves = new ArrayList<Move>();
         for (int i = 0; i < offsets.length; i++) {
             int newPos = kingPos + offsets[i];
 
             Piece piece = board.getPiece(newPos);
-            if (piece.isEmpty() && piece.isEnemy(sideToMove)) {
-                moves.add(new Move(kingPos, newPos, KING));
+            if (piece.isEmpty() || piece.isEnemy(sideToMove)) {
+                moves.add(new Move(new Square(kingPos), new Square(newPos), KING));
             } else {
                 // не можем ходить:
                 // либо своя фигура
@@ -50,7 +50,7 @@ public class MoveGenerator {
                 for (int newPos = rookPos + offsets[i]; ; newPos += offsets[i]) {
                     Piece piece = board.getPiece(newPos);
                     if (piece.isEmpty() && piece.isEnemy(sideToMove)) {
-                        moves.add(new Move(rookPos, newPos, KING));
+                        moves.add(new Move(new Square(rookPos), new Square(newPos), ROOK));
                     } else {
                         // не можем ходить:
                         // либо своя фигура
