@@ -2,8 +2,7 @@ package ru.pflb.chess;
 
 import static ru.pflb.chess.Color.BLACK;
 import static ru.pflb.chess.Color.WHITE;
-import static ru.pflb.chess.PieceType.KING;
-import static ru.pflb.chess.PieceType.ROOK;
+import static ru.pflb.chess.PieceType.*;
 
 /**
  * @author <a href="mailto:8445322@gmail.com">Ivan Bonkin</a>.
@@ -24,6 +23,10 @@ public class Piece {
     public static final Piece B_KING = new Piece(KING, BLACK);
     public static final Piece W_ROOK = new Piece(ROOK, WHITE);
     public static final Piece B_ROOK = new Piece(ROOK, BLACK);
+    public static final Piece W_QUEEN = new Piece(QUEEN, WHITE);
+    public static final Piece B_QUEEN = new Piece(QUEEN, BLACK);
+    public static final Piece W_BISHOP = new Piece(BISHOP, WHITE);
+    public static final Piece B_BISHOP = new Piece(BISHOP, BLACK);
 
     private final int code;
 
@@ -41,9 +44,13 @@ public class Piece {
      *
      * 1 - белый король
      * 2 - белая ладья
+     * 3 - белый ферзь
+     * 4 - белый слон
      *
      * 7 - черный король
      * 8 - черная ладья
+     * 9 - черный ферзь
+     * 10 - черный слон
      */
     public int getCode() {
         return code;
@@ -61,6 +68,12 @@ public class Piece {
             case 2:
             case 8:
                 return ROOK;
+            case 3:
+            case 9:
+                return QUEEN;
+            case 4:
+            case 10:
+                return BISHOP;
             default:
                 return null;
         }
