@@ -195,6 +195,7 @@ public class Board {
                     for (int i = 0; i < rookPos120[pieceTo.getColor().getCode()].length; i++) {
                         if (rookPos120[pieceTo.getColor().getCode()][i] == move.getTo().getCode()) {
                             rookPos120[pieceTo.getColor().getCode()][i] = 0;
+                            rooksNb[pieceTo.getColor().getCode()] -= 1;
                             // в случае, если удалили из середины - сдвигаем все значения, оставляя нули справа
                             for (int j = i + 1; j < rookPos120[pieceTo.getColor().getCode()].length; j++) {
                                 int nextPos = rookPos120[pieceTo.getColor().getCode()][j];
@@ -211,6 +212,7 @@ public class Board {
                     for (int i = 0; i < bishopPos120[pieceTo.getColor().getCode()].length; i++) {
                         if (bishopPos120[pieceTo.getColor().getCode()][i] == move.getTo().getCode()) {
                             bishopPos120[pieceTo.getColor().getCode()][i] = 0;
+                            bishopsNb[pieceTo.getColor().getCode()] -= 1;
                             // в случае, если удалили из середины - сдвигаем все значения, оставляя нули справа
                             for (int j = i + 1; j < bishopPos120[pieceTo.getColor().getCode()].length; j++) {
                                 int nextPos = bishopPos120[pieceTo.getColor().getCode()][j];
@@ -303,6 +305,7 @@ public class Board {
                     for (int i = 0; i < rookPos120[sideToMove.getCode()].length; i++) {
                         if (rookPos120[sideToMove.getCode()][i] == 0) {
                             rookPos120[sideToMove.getCode()][i] = move.getTo().getCode();
+                            rooksNb[sideToMove.getCode()] += 1;
                             break;
                         }
                     }
@@ -310,6 +313,7 @@ public class Board {
                     for (int i = 0; i < bishopPos120[sideToMove.getCode()].length; i++) {
                         if (bishopPos120[sideToMove.getCode()][i] == 0) {
                             bishopPos120[sideToMove.getCode()][i] = move.getTo().getCode();
+                            bishopsNb[sideToMove.getCode()] += 1;
                             break;
                         }
                     }
