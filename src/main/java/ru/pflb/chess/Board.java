@@ -14,15 +14,17 @@ import static ru.pflb.chess.PieceType.ROOK;
  */
 public class Board {
 
+    // массивы быстрого доступа, позволяющие получать позиции всех имеющихся у каждой стороны фигур без обхода всей доски
     private int[] kingPos120 = {0, 0};
     private int[][] rookPos120 = {
             {0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0}
     };
+    // число имеющихся ладей у кажой из сторон
+    private int rooksNb[] = {0, 0};
 
     private Color sideToMove;
 
-    private int rooksNb[] = {0, 0};
 
     private int[][] offset = {
         // KING
@@ -129,6 +131,11 @@ public class Board {
         return rooksNb[color.getCode()];
     }
 
+    /**
+     * Выполнение хода. Изменяет положения фигур.
+     *
+     * @param move ход
+     */
     public void doMove(Move move) {
         // удаление взятой фигуры, если была
         Piece pieceTo = mailbox120[move.getTo().getCode()];
@@ -172,6 +179,11 @@ public class Board {
         sideToMove = sideToMove.getOpposite();
     }
 
+    /**
+     * Отмена выполненного хода. Изменяет положения фигур.
+     *
+     * @param move выполненный прежде ход
+     */
     public void undoMove(Move move) {
         mailbox120[move.getFrom().getCode()] = move.getPiece();
         mailbox120[move.getTo().getCode()] = move.getCapture().orElse(EMP);
