@@ -8,4 +8,8 @@ public class NotImplementedException extends RuntimeException {
     public NotImplementedException() {
         super("Операция пока не поддерживается");
     }
+
+    public NotImplementedException(String description) {
+        super(description);
+    }
 }
