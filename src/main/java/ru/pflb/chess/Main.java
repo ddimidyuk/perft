@@ -9,11 +9,12 @@ package ru.pflb.chess;
 public class Main {
 
     public static void main(String[] args) {
-        Board board = new Board(args.length >= 1 ? args[0].replaceAll("\"", "") : "4kr2/8/8/8/8/8/8/3RK3 w - -");
+        Board board = new Board(args.length >= 1 ? args[0].replaceAll("\"", "") : "K1k5/1R1b4/8/8/4Q3/8/5b2/8 w - -");
 
-        for (int d = 1; d <= 5; d++) {
+        for (int d = 1; d <= 7; d++) {
+            long start = System.currentTimeMillis();
             int moves = Search.perft(board, d);
-            System.out.format("%2d => %10d\n", d, moves);
+            System.out.format("%2d => %10d (%5.3f)\n", d, moves, (System.currentTimeMillis() - start) / 1000.0);
         }
     }
 }
