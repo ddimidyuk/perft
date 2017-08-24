@@ -210,8 +210,8 @@ public class Board {
                             break;
                         }
                     }
-                    default:
-                        throw new NotImplementedException();
+                default:
+                    throw new NotImplementedException();
             }
         }
 

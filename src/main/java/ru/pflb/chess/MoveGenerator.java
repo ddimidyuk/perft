@@ -36,8 +36,10 @@ public class MoveGenerator {
             int newPos = kingPos + offsets[i];
 
             Piece piece = board.getPiece(newPos);
-            if (piece.isEmpty() || piece.isEnemy(board.getSideToMove())) {
+            if (piece.isEmpty()) {
                 moves.add(new Move(new Square(kingPos), new Square(newPos), board.getSideToMove() == WHITE ? W_KING : B_KING));
+            } else if (piece.isEnemy(board.getSideToMove())) {
+                moves.add(new Move(new Square(kingPos), new Square(newPos), board.getSideToMove() == WHITE ? W_KING : B_KING, piece));
             } else {
                 // не можем ходить:
                 // либо своя фигура

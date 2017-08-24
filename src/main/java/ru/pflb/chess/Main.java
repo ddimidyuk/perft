@@ -9,6 +9,11 @@ package ru.pflb.chess;
 public class Main {
 
     public static void main(String[] args) {
-        Board board = new Board(args.length >= 1 ? args[0] : "4kr2/8/8/8/8/8/8/3RK3 w - -");
+        Board board = new Board(args.length >= 1 ? args[0].replaceAll("\"", "") : "4kr2/8/8/8/8/8/8/3RK3 w - -");
+
+        for (int d = 1; d <= 5; d++) {
+            int moves = Search.perft(board, d);
+            System.out.format("%2d => %10d\n", d, moves);
+        }
     }
 }
