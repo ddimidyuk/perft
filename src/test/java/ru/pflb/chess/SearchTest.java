@@ -12,8 +12,9 @@ public class SearchTest {
 
     @Test
     public void perftTest() {
-        Board board = new Board("3kr3/K7/8/8/8/8/8/8 w - -");
-        int movesNb = Search.perft(board, 2);
+        //Board board = new Board("3kr3/K7/8/8/8/8/8/8 w - -");
+        Board board = new Board("K1k7/8/8/8/8/8/8/8 w - -");
+        int movesNb = Search.perft(board, 1);
 
         assertThat(movesNb).isEqualTo(65);
     }
