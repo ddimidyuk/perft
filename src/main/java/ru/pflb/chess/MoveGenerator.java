@@ -20,12 +20,12 @@ public class MoveGenerator {
     };
 
     private final Board board;
+    private final Color currentColor;
 
     //проверка на шах
-    private boolean leftInCheck(int pos, Color color) {
+    private boolean leftInCheck(int kingPos, Color color) {
         boolean isCheck = false;
         boolean isFirst = false;
-        int kingPos = pos;
         int[] offsetsLine = board.getOffsets(ROOK);
         int[] offsetsDiag = board.getOffsets(BISHOP);
         loop:
@@ -180,6 +180,7 @@ public class MoveGenerator {
 
     public MoveGenerator(Board board) {
         this.board = board;
+        this.currentColor = board.getSideToMove();
     }
 
     public List<Move> generateMoves() {
@@ -201,7 +202,7 @@ public class MoveGenerator {
             int newPos = kingPos + offsets[i];
             Piece piece = board.getPiece(newPos);
             if (piece.getCode() != -1) {
-                if (leftInCheck(newPos, board.getSideToMove()))
+                if (leftInCheck(newPos, currentColor))
                     continue;
             }
             if (piece.isEmpty()) {
@@ -263,14 +264,14 @@ public class MoveGenerator {
                 for (int newPos = rookPos + offsets[i]; ; newPos += offsets[i]) {
 
                     // проверка на валидность хода
-//                    if (kingIsRank && offsets[i] == 10 || offsets[i] == -10) {
-//                        if (leftInCheck(board.getSideToMove() == WHITE ? W_KING : B_KING))
-//                            break;
-//                    }
-//                    if (kingIsFile && offsets[i] == 1 || offsets[i] == -1) {
-//                        if (leftInCheck(board.getSideToMove() == WHITE ? W_KING : B_KING))
-//                            break;
-//                    }
+                    if (kingIsRank && offsets[i] == 10 || offsets[i] == -10) {
+                        if (leftInCheck(board.getKingPos(currentColor), currentColor))
+                            break;
+                    }
+                    if (kingIsFile && offsets[i] == 1 || offsets[i] == -1) {
+                        if (leftInCheck(board.getKingPos(currentColor), currentColor))
+                            break;
+                    }
 
                     Piece piece = board.getPiece(newPos);
                     if (piece.isEmpty()) {
@@ -311,14 +312,14 @@ public class MoveGenerator {
                 for (int newPos = bishopPos + offsets[i]; ; newPos += offsets[i]) {
 
                     // проверка на валидность хода
-//                    if (kingIsDiag1 && offsets[i] == 9 || offsets[i] == -9) {
-//                        if (leftInCheck(board.getSideToMove() == WHITE ? W_KING : B_KING))
-//                            break;
-//                    }
-//                    if (kingIsDiag2 && offsets[i] == 11 || offsets[i] == -11) {
-//                        if (leftInCheck(board.getSideToMove() == WHITE ? W_KING : B_KING))
-//                            break;
-//                    }
+                    if (kingIsDiag1 && offsets[i] == 9 || offsets[i] == -9) {
+                        if (leftInCheck(board.getKingPos(currentColor), currentColor))
+                            break;
+                    }
+                    if (kingIsDiag2 && offsets[i] == 11 || offsets[i] == -11) {
+                        if (leftInCheck(board.getKingPos(currentColor), currentColor))
+                            break;
+                    }
 
                     Piece piece = board.getPiece(newPos);
                     if (piece.isEmpty()) {

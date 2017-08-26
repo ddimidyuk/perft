@@ -294,7 +294,7 @@ public class Board {
                 }
                 break;
             case QUEEN:
-                queenPos120[sideToMove.getOppositeCode()] = move.getTo().getCode();
+                queenPos120[sideToMove.getOppositeCode()] = move.getFrom().getCode();
                 break;
         }
 
