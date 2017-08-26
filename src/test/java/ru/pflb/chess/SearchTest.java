@@ -15,8 +15,8 @@ public class SearchTest {
         long start = System.currentTimeMillis();
         //Board board = new Board("3kr3/K7/8/8/8/8/8/8 w - -");
         //Board board = new Board("2k5/8/8/8/8/8/8/7K w - -");
-        Board board = new Board("8/8/6k1/8/4b3/8/6K1/8 w - -");
-        int movesNb = Search.perft(board, 4);
+        Board board = new Board("r1bqkb1r/8/8/8/8/8/8/R1BQKB1R w - -");
+        int movesNb = Search.perft(board, 1);
         System.out.println(System.currentTimeMillis()-start);
 
         assertThat(movesNb).isEqualTo(36);
