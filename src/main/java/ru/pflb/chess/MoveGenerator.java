@@ -22,27 +22,32 @@ public class MoveGenerator {
     private final Board board;
 
     //проверка на шах
-    private boolean leftInCheck(Piece king) {
+    private boolean leftInCheck(int pos, Color color) {
         boolean isCheck = false;
         boolean isFirst = false;
-        int kingPos = board.getKingPos(king.getColor());
+        int kingPos = pos;
         int[] offsetsLine = board.getOffsets(ROOK);
         int[] offsetsDiag = board.getOffsets(BISHOP);
         loop:
         for (int j = 1; j < 2; j++) {
             for (int i = 0; i < offsetsLine.length; i++) {
+                if (offsetsLine[i] == 0) continue;
                 isFirst = true;
                 for (int newPos = kingPos + offsetsLine[i]; offsetsLine[i] != 0; newPos += offsetsLine[i]) {
                     Piece piece = board.getPiece(newPos);
 
                     if (isFirst) {
                         //проверка на короля
-                    }
+                            if (KING.equals(piece.getPieceType()) && (!piece.getColor().equals(color))) {
+                                isCheck = true;
+                                break loop;
+                            }
+                        }
 
                     isFirst = false;
                     if (piece.isEmpty()) {
                         continue;
-                    } else if (piece.isEnemy(king.getColor()) && (piece.getPieceType().equals(ROOK) || piece.getPieceType().equals(QUEEN))) {
+                    } else if (piece.isEnemy(color) && (piece.getPieceType().equals(ROOK) || piece.getPieceType().equals(QUEEN))) {
                         isCheck = true;
                         break loop;
                     } else {
@@ -54,12 +59,22 @@ public class MoveGenerator {
                 }
             }
             for (int i = 0; i < offsetsDiag.length; i++) {
-                if (board.getPiece(kingPos + offsetsLine[i]).equals(KING)) break;
+                if (offsetsDiag[i] == 0) continue;
+                isFirst = true;
+
                 for (int newPos = kingPos + offsetsDiag[i]; offsetsDiag[i] != 0; newPos += offsetsDiag[i]) {
                     Piece piece = board.getPiece(newPos);
+                    if (isFirst) {
+                        //проверка на короля
+                        if (KING.equals(piece.getPieceType()) && (!piece.getColor().equals(color))) {
+                            isCheck = true;
+                            break loop;
+                        }
+                    }
+                    isFirst = false;
                     if (piece.isEmpty()) {
                         continue;
-                    } else if (piece.isEnemy(king.getColor()) && (piece.getPieceType().equals(BISHOP) || piece.getPieceType().equals(QUEEN))) {
+                    } else if (piece.isEnemy(color) && (piece.getPieceType().equals(BISHOP) || piece.getPieceType().equals(QUEEN))) {
                         isCheck = true;
                         break loop;
                     } else {
@@ -75,6 +90,7 @@ public class MoveGenerator {
     }
 
     //находиться ли король по горизонтали
+
     private boolean isRank(Piece king, int square) {
         boolean isRank = false;
         loop:
@@ -183,9 +199,11 @@ public class MoveGenerator {
         List<Move> moves = new ArrayList<Move>();
         for (int i = 0; i < offsets.length; i++) {
             int newPos = kingPos + offsets[i];
-            if (leftInCheck(board.getSideToMove() == WHITE ? W_KING : B_KING))
-                continue;
             Piece piece = board.getPiece(newPos);
+            if (piece.getCode() != -1) {
+                if (leftInCheck(newPos, board.getSideToMove()))
+                    continue;
+            }
             if (piece.isEmpty()) {
                 moves.add(new Move(new Square(kingPos), new Square(newPos), board.getSideToMove() == WHITE ? W_KING : B_KING));
             } else if (piece.isEnemy(board.getSideToMove())) {
@@ -207,8 +225,8 @@ public class MoveGenerator {
         for (int i = 0; i < offsets.length; i++) {
             for (int newPos = queenPos + offsets[i]; ; newPos += offsets[i]) {
                 if (queenPos == 0) break;
-                if (leftInCheck(board.getSideToMove() == WHITE ? W_KING : B_KING))
-                    break;
+//                if (leftInCheck(board.getSideToMove() == WHITE ? W_KING : B_KING))
+//                    break;
                 Piece piece = board.getPiece(newPos);
                 if (piece.isEmpty()) {
                     moves.add(new Move(new Square(queenPos), new Square(newPos), board.getSideToMove() == WHITE ? W_QUEEN : B_QUEEN));
@@ -245,14 +263,14 @@ public class MoveGenerator {
                 for (int newPos = rookPos + offsets[i]; ; newPos += offsets[i]) {
 
                     // проверка на валидность хода
-                    if (kingIsRank && offsets[i] == 10 || offsets[i] == -10) {
-                        if (leftInCheck(board.getSideToMove() == WHITE ? W_KING : B_KING))
-                            break;
-                    }
-                    if (kingIsFile && offsets[i] == 1 || offsets[i] == -1) {
-                        if (leftInCheck(board.getSideToMove() == WHITE ? W_KING : B_KING))
-                            break;
-                    }
+//                    if (kingIsRank && offsets[i] == 10 || offsets[i] == -10) {
+//                        if (leftInCheck(board.getSideToMove() == WHITE ? W_KING : B_KING))
+//                            break;
+//                    }
+//                    if (kingIsFile && offsets[i] == 1 || offsets[i] == -1) {
+//                        if (leftInCheck(board.getSideToMove() == WHITE ? W_KING : B_KING))
+//                            break;
+//                    }
 
                     Piece piece = board.getPiece(newPos);
                     if (piece.isEmpty()) {
@@ -293,14 +311,14 @@ public class MoveGenerator {
                 for (int newPos = bishopPos + offsets[i]; ; newPos += offsets[i]) {
 
                     // проверка на валидность хода
-                    if (kingIsDiag1 && offsets[i] == 9 || offsets[i] == -9) {
-                        if (leftInCheck(board.getSideToMove() == WHITE ? W_KING : B_KING))
-                            break;
-                    }
-                    if (kingIsDiag2 && offsets[i] == 11 || offsets[i] == -11) {
-                        if (leftInCheck(board.getSideToMove() == WHITE ? W_KING : B_KING))
-                            break;
-                    }
+//                    if (kingIsDiag1 && offsets[i] == 9 || offsets[i] == -9) {
+//                        if (leftInCheck(board.getSideToMove() == WHITE ? W_KING : B_KING))
+//                            break;
+//                    }
+//                    if (kingIsDiag2 && offsets[i] == 11 || offsets[i] == -11) {
+//                        if (leftInCheck(board.getSideToMove() == WHITE ? W_KING : B_KING))
+//                            break;
+//                    }
 
                     Piece piece = board.getPiece(newPos);
                     if (piece.isEmpty()) {

@@ -275,7 +275,7 @@ public class Board {
         // обновление массивов быстрого доступа
         switch (move.getPiece().getPieceType()) {
             case KING:
-                kingPos120[sideToMove.getOppositeCode()] = move.getTo().getCode();
+                kingPos120[sideToMove.getOppositeCode()] = move.getFrom().getCode();
                 break;
             case ROOK:
                 for (int i = 0; i < rookPos120[sideToMove.getOppositeCode()].length; i++) {
