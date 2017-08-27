@@ -319,6 +319,7 @@ public class Board {
                     }
                 case QUEEN:
                     queenPos120[sideToMove.getCode()] = move.getTo().getCode();
+                    break;
                 default:
                     throw new NotImplementedException();
             }
