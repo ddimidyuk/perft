@@ -1,6 +1,5 @@
 package ru.pflb.chess;
 
-import java.awt.event.PaintEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,8 +31,8 @@ public class MoveGenerator {
         int[] offsetsDiag = board.getOffsets(BISHOP);
         loop:
         for (int j = 1; j < 2; j++) {
-            for (int i = 0; i < offsetsLine.length; i++) {
-                if (offsetsLine[i] == 0) continue;
+            for (int i = 0; i < 4; i++) {
+                //if (offsetsLine[i] == 0) continue;
                 isFirst = true;
                 for (int newPos = kingPos + offsetsLine[i]; offsetsLine[i] != 0; newPos += offsetsLine[i]) {
                     if (newPos == from) piece = EMP;
@@ -63,8 +62,8 @@ public class MoveGenerator {
                     }
                 }
             }
-            for (int i = 0; i < offsetsDiag.length; i++) {
-                if (offsetsDiag[i] == 0) continue;
+            for (int i = 0; i < 4; i++) {
+                //if (offsetsDiag[i] == 0) continue;
                 isFirst = true;
 
                 for (int newPos = kingPos + offsetsDiag[i]; offsetsDiag[i] != 0; newPos += offsetsDiag[i]) {
@@ -242,6 +241,7 @@ public class MoveGenerator {
                     moves.add(new Move(new Square(queenPos), new Square(newPos), currentColor == WHITE ? W_QUEEN : B_QUEEN));
                 } else if (piece.isEnemy(currentColor)) {
                     moves.add(new Move(new Square(queenPos), new Square(newPos), currentColor == WHITE ? W_QUEEN : B_QUEEN, piece));
+                    break;
                 } else {
                     // не можем ходить:
                     // либо своя фигура
@@ -263,7 +263,7 @@ public class MoveGenerator {
 //            boolean kingIsFile = false;
             int[] offsets = board.getOffsets(ROOK);
 
-            for (int i = 0; i < offsets.length; i++) {
+            for (int i = 0; i < 4; i++) {
 //                //проверка на наличие короля по горизонтали или вертикали
 //                if (offsets[i] == 10 || offsets[i] == -10)
 //                    kingIsRank = isRank(board.getSideToMove() == WHITE ? W_KING : B_KING, rookPos);
@@ -288,6 +288,7 @@ public class MoveGenerator {
                         moves.add(new Move(new Square(rookPos), new Square(newPos), board.getSideToMove() == WHITE ? W_ROOK : B_ROOK));
                     } else if (piece.isEnemy(board.getSideToMove())) {
                         moves.add(new Move(new Square(rookPos), new Square(newPos), board.getSideToMove() == WHITE ? W_ROOK : B_ROOK, piece));
+                        break;
                     } else {
                         // не можем ходить:
                         // либо своя фигура
@@ -311,7 +312,7 @@ public class MoveGenerator {
 //            boolean kingIsDiag1 = false;
 //            boolean kingIsDiag2 = false;
 
-            for (int i = 0; i < offsets.length; i++) {
+            for (int i = 0; i < 4; i++) {
 
 //                //проверка на наличие короля по горизонтали или вертикали
 //                if (offsets[i] == 9 || offsets[i] == -9)
@@ -338,6 +339,7 @@ public class MoveGenerator {
                         moves.add(new Move(new Square(bishopPos), new Square(newPos), board.getSideToMove() == WHITE ? W_BISHOP : B_BISHOP));
                     } else if (piece.isEnemy(board.getSideToMove())) {
                         moves.add(new Move(new Square(bishopPos), new Square(newPos), board.getSideToMove() == WHITE ? W_BISHOP : B_BISHOP, piece));
+                        break;
                     } else {
                         // не можем ходить:
                         // либо своя фигура

@@ -14,8 +14,9 @@ public class SearchTest {
     public void perftTest() {
         long start = System.currentTimeMillis();
         //Board board = new Board("2k5/8/8/8/8/8/8/3K4 w - -");
-        Board board = new Board("r1bqkb1r/8/8/8/8/8/8/R1BQKB1R w - -");
-        int movesNb = Search.perft(board, 3);
+        //Board board = new Board("4kb2/8/8/8/8/8/8/4K2R w - -");
+        Board board = new Board("4kr2/8/8/8/8/8/8/4K3 w - -");
+        int movesNb = Search.perft(board, 4);
         System.out.println(System.currentTimeMillis()-start);
 
         assertThat(movesNb).isEqualTo(73468);
