@@ -228,6 +228,11 @@ public class Board {
                 case QUEEN:
                     queenPos120[pieceTo.getColor().getCode()] = 0;
                     break;
+                case KING:
+                    System.out.println("king's dead");
+                    kingPos120[pieceTo.getColor().getCode()] = 0;
+                    System.out.println(kingPos120[pieceTo.getColor().getCode()]);
+                    break;
             }
         }
 
@@ -319,6 +324,9 @@ public class Board {
                     }
                 case QUEEN:
                     queenPos120[sideToMove.getCode()] = move.getTo().getCode();
+                    break;
+                case KING:
+                    kingPos120[sideToMove.getCode()] = move.getTo().getCode();
                     break;
                 default:
                     throw new NotImplementedException();

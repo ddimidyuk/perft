@@ -18,7 +18,14 @@ public class Search {
         int positions = 0;
         for (Move move : moves) {
             board.doMove(move);
+            //System.out.println(board.getKingPos(Color.WHITE) +" "+ board.getKingPos(Color.BLACK));
+            if(board.getKingPos(Color.BLACK) == 0 || board.getKingPos(Color.WHITE)==0){
+                board.undoMove(move);
+               // System.out.println(board.getKingPos(Color.WHITE) +" "+ board.getKingPos(Color.BLACK));
+                continue;
+            }
             positions += perft(board, depth - 1);
+
             board.undoMove(move);
         }
         return positions;
